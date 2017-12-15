@@ -83,7 +83,7 @@ public class Mapa {
                 System.out.print(con);
                 grid[i][j]=new JLabel();
                 grid[i][j].setText(" ");
-                grid[i][j].setToolTipText(terreno[con]);
+                grid[i][j].setToolTipText("[ "+j+","+i+" ] "+terreno[con]);
                 grid[i][j].setBackground(background[con]);
                 grid[i][j].setOpaque(true);
                 grid[i][j].setFont(new Font("Courier New",Font.BOLD,21));
@@ -107,16 +107,16 @@ public class Mapa {
                                 indice++;
                             }
                             jl.setBackground(background[indice]);
-                            jl.setToolTipText(terreno[indice]);
+                            jl.setToolTipText(jl.getToolTipText().replaceAll("Montaña|Tierra|Agua|Arena|Bosque", terreno[indice]));
                             mapa.updateUI();
                             // Evento para seleccionar punto inicial y final 
-                        } else if (fin==false && evt.isMetaDown()==true){
+                        } /*else if (fin==false && evt.isMetaDown()==true){
                             jl.setText("F");
                             fin = true;
                         }else if(ini==false && evt.isMetaDown()==false){
                             jl.setText("I");
                             ini = true;
-                        }
+                        }*/
                         
                     }
                 });

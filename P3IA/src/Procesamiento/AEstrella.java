@@ -39,8 +39,12 @@ public class AEstrella extends Thread{
     ArrayList<Punto> closed;
     Punto pt;
     DefaultMutableTreeNode dm;
+    int tiempo;
+    int puntaje;
+    String marca;
+    public boolean bandera; 
     
-    public AEstrella    (Punto ini, Punto fin, Personaje p, Mapa m, JPanel panel){
+    public AEstrella    (Punto ini, Punto fin, Personaje p, Mapa m, JPanel panel, int tiempo, String marca){
         this.ini=ini;
         this.fin=fin;
         this.p=p;
@@ -53,11 +57,15 @@ public class AEstrella extends Thread{
         open.add(ini);  // Agrega el nodo inicial al conjunto de nodos abiertos
         pt=new Punto();
         dm = new DefaultMutableTreeNode("Camino:"); // Inicializa el arbol
+        tiempo = this.tiempo;
+        puntaje = 0;
+        this.marca = marca;
+        bandera = true;
     }
     
     @Override
     public void run(){
-        while(true){
+        while(bandera){
             int index = min(open);  //Encuentra el minimo entre los nodos abiertos(open)
             pt = open.get(index);
             open.remove(index); // Remueve el nodo minimo de los nodos abiertos
@@ -110,11 +118,11 @@ public class AEstrella extends Thread{
                         //p.setPuntos(p.getPuntos()+p.getCostoOf(m.getMap().get(up.y).get(up.x)));    // Asigna puntos
                         //txtPuntos.setText(p.getPuntos()+"");
                         try {
-                            recorrido();    //Manda llamar a la funcion que muestra el recorrido optimo
+                            recorrido(tiempo,marca);    //Manda llamar a la funcion que muestra el recorrido optimo
                         } catch (InterruptedException ex) {
                             Logger.getLogger(AEstrella.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        this.stop();// Detiene el hilo;
+                        bandera=false;
                     }else if(search(open,up)!=-1 || search(closed,up)!=-1){
                         // Do Nothing/Add Sentences
                     }else{
@@ -136,11 +144,11 @@ public class AEstrella extends Thread{
                         //p.setPuntos(p.getPuntos()+p.getCostoOf(m.getMap().get(down.y).get(down.x)));
                         //txtPuntos.setText(p.getPuntos()+"");
                         try {
-                            recorrido();
+                            recorrido(tiempo,marca);
                         } catch (InterruptedException ex) {
                             Logger.getLogger(AEstrella.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        this.stop();;
+                        bandera=false;
                     }else if(search(open,down)!=-1 || search(closed,down)!=-1){
                         // Do Nothing
                     }else{
@@ -162,11 +170,11 @@ public class AEstrella extends Thread{
                         //p.setPuntos(p.getPuntos()+p.getCostoOf(m.getMap().get(right.y).get(right.x)));
                         //txtPuntos.setText(p.getPuntos()+"");
                         try {
-                            recorrido();
+                            recorrido(tiempo,marca);
                         } catch (InterruptedException ex) {
                             Logger.getLogger(AEstrella.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        this.stop();
+                        bandera=false;
                     }else if(search(open,right)!=-1 || search(closed,right)!=-1){
                         // Do Nothing
                     }else{
@@ -188,11 +196,11 @@ public class AEstrella extends Thread{
                         //p.setPuntos(p.getPuntos()+p.getCostoOf(m.getMap().get(left.y).get(left.x)));
                         //txtPuntos.setText(p.getPuntos()+"");
                         try {
-                            recorrido();
+                            recorrido(tiempo,marca);
                         } catch (InterruptedException ex) {
                             Logger.getLogger(AEstrella.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        this.stop();
+                        bandera=false;
                     }else if(search(open,left)!=-1 || search(closed,left)!=-1){
                         // Do Nothing
                     }else{
@@ -200,7 +208,9 @@ public class AEstrella extends Thread{
                     }
                 }
             }
-            closed.add(pt);//Agrega el nodo que se saco de abiertos a cerrados
+            if (search(closed,pt)==-1){
+                closed.add(pt);//Agrega el nodo que se saco de abiertos a cerrados
+            }
             //spArbol.removeAll();    
             //JTree arbol = new JTree(dm);
             //spArbol.add(arbol); //Refresca el ScrollPane que nos muestra el arbol
@@ -212,7 +222,7 @@ public class AEstrella extends Thread{
     agrega el camino optimo a un arraylist y despues lo muestra paso a paso 
     recorriendo el arraylist desde el ultimo elemento hasta el primero
     */
-    public void recorrido() throws InterruptedException{
+    public void recorrido(int tiempo, String marca) throws InterruptedException{
         ArrayList<String> camino = new ArrayList<String>();
         DefaultMutableTreeNode aux = arbolSearch(dm,fin.x+","+fin.y);
         int lim = aux.getLevel();
@@ -226,11 +236,15 @@ public class AEstrella extends Thread{
             int x = Integer.parseInt(txt.substring(0, i));
             int y = Integer.parseInt(txt.substring(i+1, txt.length()));
             //System.out.println(txt + "-" + x+","+y);
+            if (j!=camino.size()-1){
+                puntaje = puntaje + p.getCostoOf(m.getMap().get(y).get(x));
+            }
             JLabel jl = m.getEtiqueta(y, x, panel);
-            jl.setText(jl.getText() + "x");
+            jl.setText(jl.getText() + marca);
             panel.updateUI();
-            Thread.sleep(500);
+            this.sleep(tiempo);
         }
+        //terminar = true;
     }
     
     public int min(ArrayList<Punto> al){
@@ -270,5 +284,9 @@ public class AEstrella extends Thread{
             }
         }
         return null;
+    }
+    
+    public int getPuntaje(){
+        return puntaje;
     }
 }

@@ -21,6 +21,9 @@ public class Personaje {
         costo[4] = costos[4];      // forest
     }
     
+    public Personaje(){
+    
+    }
     /*
     Esta funcion recibe la cadena del tipo de terreno y verifica si los puntos
     para moverse son suficientes; para evitar mayor complejidad si un movimiento
