@@ -587,6 +587,14 @@ public class Principal extends javax.swing.JFrame {
         inicializar();
         CalcularCaminos juego = new CalcularCaminos(iniciales, recursos, personajes, m, panel,tblCalculos,btnAct); 
         juego.start();
+        /*
+        personajes[0]=setPersonaje(cbP1.getSelectedItem().toString());
+        iniciales[0]=new Punto(Integer.parseInt(txtP1x.getText()),Integer.parseInt(txtP1y.getText()));
+        tblCalculos.getModel().setValueAt(cbP1.getSelectedItem().toString(), 0, 0);
+        recursos[0]=new Punto(Integer.parseInt(txtP2x.getText()),Integer.parseInt(txtP2y.getText()));
+        AEstrella mover = new AEstrella(iniciales[0],recursos[0],personajes[0],m,panel,300,"x");
+        mover.start();
+        */
     }//GEN-LAST:event_btnResolverActionPerformed
 
     private void cbP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbP1ActionPerformed

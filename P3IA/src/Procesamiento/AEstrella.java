@@ -240,9 +240,13 @@ public class AEstrella extends Thread{
                 puntaje = puntaje + p.getCostoOf(m.getMap().get(y).get(x));
             }
             JLabel jl = m.getEtiqueta(y, x, panel);
-            jl.setText(jl.getText() + marca);
+            if(jl.getText().contains(marca)){
+            
+            }else{
+                jl.setText(jl.getText() + marca);
+            }
             panel.updateUI();
-            this.sleep(tiempo);
+            AEstrella.sleep(50);
         }
         //terminar = true;
     }
