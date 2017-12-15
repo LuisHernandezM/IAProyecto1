@@ -39,7 +39,7 @@ public class AEstrella extends Thread{
     ArrayList<Punto> closed;
     Punto pt;
     DefaultMutableTreeNode dm;
-    int tiempo;
+    int tiempo;// Causa errores asi que ya no se ocupa, despues la borro
     int puntaje;
     String marca;
     public boolean bandera; 

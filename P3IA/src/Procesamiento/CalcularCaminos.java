@@ -38,9 +38,11 @@ public class CalcularCaminos extends Thread{
     
     @Override
     public void run(){
+        // Para cada personaje
         for (int i=0;i<p.length;i++){
+            //Para cada recurso
             for (int j=0;j<recursos.length-1;j++){
-                int pos=0;
+                int pos=0;  //Variable auxiliar para la escritura en la tabla
                 if (j==0){
                     pos=1;
                 }else if(j==1){
@@ -48,34 +50,38 @@ public class CalcularCaminos extends Thread{
                 }else{
                     pos=5;
                 }
+                //Obtiene los JLabels para marcar cada objetivo individual Personaje-Objetivo-Portal
                 JLabel jli = m.getEtiqueta(ini[i].y, ini[i].x, panel);
                 jli.setText(calculos.getModel().getValueAt(i, 0).toString().charAt(0)+"");
                 JLabel jlf = m.getEtiqueta(recursos[j].y, recursos[j].x, panel);
                 jlf.setText(calculos.getModel().getColumnName(pos).charAt(2)+"");
                 JLabel jld = m.getEtiqueta(recursos[3].y, recursos[3].x, panel);
                 jld.setText(calculos.getModel().getColumnName(pos+1).charAt(4)+"");
-                boolean run = true;
+                boolean run = true; // Nos permite crear un ciclo de espera para que el siguiente hilo no 
+                                    // se ejecute hasta que termine el primero
+                // Recorrido Personaje-Objetivo
                 AEstrella mover = new AEstrella(ini[i],recursos[j],p[i],m,panel,500,marcas[i]);
                 mover.start();
                 while(run){
                     if (mover.getState()==Thread.State.TERMINATED){
-                        run = false;
+                        run = false;    // Si termina el hilo anterior sale del ciclo
                     }
                 }
-                calculos.getModel().setValueAt(mover.getPuntaje(), i, pos);
-                calculos.updateUI();
-                run = true;
+                calculos.getModel().setValueAt(mover.getPuntaje(), i, pos); // Asigna el costo a la tabla
+                calculos.updateUI();    // Actualiza la tabla
+                run = true; // Ciclo de espera
+                // Recorrido Objetivo-Portal
                 AEstrella destino = new AEstrella(recursos[j],recursos[3],p[i],m,panel,500,marcas[i]);
                 destino.start();
                 while(run){
                     if (destino.getState()==Thread.State.TERMINATED){
-                        run = false;
+                        run = false;    // Si termina el hilo anterior sale del ciclo
                         
                     }
                 }
-                calculos.getModel().setValueAt(mover.getPuntaje(), i, pos+1);
-                calculos.updateUI();
-                action.doClick();
+                calculos.getModel().setValueAt(mover.getPuntaje(), i, pos+1);   //Asigna costo a la tabla
+                calculos.updateUI();    //Actualiza la tabla
+                action.doClick();   // Limpia el mapa
             }
         }
     }
