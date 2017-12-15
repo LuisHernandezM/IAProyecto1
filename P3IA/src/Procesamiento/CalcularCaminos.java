@@ -79,7 +79,7 @@ public class CalcularCaminos extends Thread{
                         
                     }
                 }
-                calculos.getModel().setValueAt(mover.getPuntaje(), i, pos+1);   //Asigna costo a la tabla
+                calculos.getModel().setValueAt(destino.getPuntaje(), i, pos+1);   //Asigna costo a la tabla
                 calculos.updateUI();    //Actualiza la tabla
                 action.doClick();   // Limpia el mapa
             }
