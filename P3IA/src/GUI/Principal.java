@@ -102,7 +102,7 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblCalculos = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblOptimo = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -478,7 +478,7 @@ public class Principal extends javax.swing.JFrame {
             tblCalculos.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblOptimo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -488,7 +488,7 @@ public class Principal extends javax.swing.JFrame {
                 "Individual", "Mision", "Al objetivo", "Al Portal"
             }
         ));
-        jScrollPane3.setViewportView(jTable2);
+        jScrollPane3.setViewportView(tblOptimo);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -585,7 +585,7 @@ public class Principal extends javax.swing.JFrame {
         //AEstrella algoritmo = new AEstrella(ini,fin,p,m,panel);
         //algoritmo.start();
         inicializar();
-        CalcularCaminos juego = new CalcularCaminos(iniciales, recursos, personajes, m, panel,tblCalculos,btnAct); 
+        CalcularCaminos juego = new CalcularCaminos(iniciales, recursos, personajes, m, panel,tblCalculos,btnAct,tblOptimo); 
         juego.start();
         /*
         personajes[0]=setPersonaje(cbP1.getSelectedItem().toString());
@@ -761,9 +761,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable2;
     private javax.swing.JPanel panel;
     private javax.swing.JTable tblCalculos;
+    private javax.swing.JTable tblOptimo;
     private javax.swing.JTextField txtEx;
     private javax.swing.JTextField txtEy;
     private javax.swing.JTextField txtKx;

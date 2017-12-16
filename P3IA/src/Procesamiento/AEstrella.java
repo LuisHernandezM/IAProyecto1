@@ -65,7 +65,7 @@ public class AEstrella extends Thread{
     
     @Override
     public void run(){
-        while(bandera){
+        while(open.isEmpty()|bandera){
             int index = min(open);  //Encuentra el minimo entre los nodos abiertos(open)
             pt = open.get(index);
             open.remove(index); // Remueve el nodo minimo de los nodos abiertos

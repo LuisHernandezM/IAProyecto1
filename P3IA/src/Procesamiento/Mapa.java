@@ -80,7 +80,7 @@ public class Mapa {
         for (int i=0; i<filas; i++){
             for (int j=0; j<col; j++){
                 con = map.get(i).get(j);
-                System.out.print(con);
+                //System.out.print(con);
                 grid[i][j]=new JLabel();
                 grid[i][j].setText(" ");
                 grid[i][j].setToolTipText("[ "+j+","+i+" ] "+terreno[con]);
@@ -122,7 +122,7 @@ public class Mapa {
                 });
                 mapa.add(grid[i][j]);
             }
-            System.out.println();
+            //System.out.println();
         }
         mapa.updateUI();
         return grid;
