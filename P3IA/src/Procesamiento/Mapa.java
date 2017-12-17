@@ -7,6 +7,7 @@ package Procesamiento;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
@@ -86,7 +87,8 @@ public class Mapa {
                 grid[i][j].setToolTipText("[ "+j+","+i+" ] "+terreno[con]);
                 grid[i][j].setBackground(background[con]);
                 grid[i][j].setOpaque(true);
-                grid[i][j].setFont(new Font("Courier New",Font.BOLD,21));
+                grid[i][j].setPreferredSize(new Dimension(mapa.getWidth()/filas,mapa.getHeight()/col));
+                //grid[i][j].setFont(new Font("Courier New",Font.BOLD,21));
                 grid[i][j].setHorizontalAlignment(SwingConstants.CENTER);
                 grid[i][j].addMouseListener(new MouseAdapter() {
                     @Override
@@ -108,7 +110,7 @@ public class Mapa {
                             }
                             jl.setBackground(background[indice]);
                             jl.setToolTipText(jl.getToolTipText().replaceAll("Montaña|Tierra|Agua|Arena|Bosque", terreno[indice]));
-                            mapa.updateUI();
+                            //mapa.updateUI();
                             // Evento para seleccionar punto inicial y final 
                         } /*else if (fin==false && evt.isMetaDown()==true){
                             jl.setText("F");
@@ -124,7 +126,7 @@ public class Mapa {
             }
             //System.out.println();
         }
-        mapa.updateUI();
+        //mapa.updateUI();
         return grid;
     }
     
@@ -157,7 +159,7 @@ public class Mapa {
             }
         }
         ar.guardarArchivo(map, "filename.txt");
-        mapa.updateUI();
+        //mapa.updateUI();
     }
     
     /*

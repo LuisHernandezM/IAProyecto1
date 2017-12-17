@@ -245,7 +245,7 @@ public class AEstrella extends Thread{
             }else{
                 jl.setText(jl.getText() + marca);
             }
-            panel.updateUI();
+            //panel.updateUI();
             AEstrella.sleep(50);
         }
         //terminar = true;

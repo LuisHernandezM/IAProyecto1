@@ -585,7 +585,7 @@ public class Principal extends javax.swing.JFrame {
         //AEstrella algoritmo = new AEstrella(ini,fin,p,m,panel);
         //algoritmo.start();
         inicializar();
-        CalcularCaminos juego = new CalcularCaminos(iniciales, recursos, personajes, m, panel,tblCalculos,btnAct,tblOptimo); 
+        CalcularCaminos juego = new CalcularCaminos(iniciales, recursos, personajes, m, panel,tblCalculos,tblOptimo); 
         juego.start();
         /*
         personajes[0]=setPersonaje(cbP1.getSelectedItem().toString());
